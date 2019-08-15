@@ -1,4 +1,4 @@
-你不知道的javascript-中卷-第一章
+你不知道的javascript-中卷-第二章
 
 ### 内置类型
 空值（null）
