@@ -30,12 +30,14 @@ if (!a) {
 
 ### 拆封
 可使用valueOf函数获得封装对象的基本类型值。
+``` javascript
 var a = new String( "abc" );
 var b = new Number( 42 );
 var c = new Boolean( true );
 a.valueOf(); // "abc"
 b.valueOf(); // 42
 c.valueOf(); // true
+```
 
 
 ### 原生函数作为构造函数
