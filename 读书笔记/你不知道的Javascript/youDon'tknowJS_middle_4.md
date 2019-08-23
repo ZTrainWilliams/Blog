@@ -90,4 +90,98 @@ ES5 开始 parseInt(..) 默认转换为十进制数。
 ## 4.4隐式强制类型转换
 隐式强制类型转换指的是那些隐蔽的强制类型转换，副作用也不是很明显。
 
+### 4.4.2　字符串和数字之间的隐式强制类型转换
+通过重载，+ 运算符即能用于数字加法，也能用于字符串拼接。
+其中一个操作数是字符串（或者数组、对象通过ToPrimitive 抽象操作后），则执行字符串拼接；否则执行数字加法。
 
+a + "" 会对 a 调用 valueOf() 方法，然后通过 ToString 抽象操作将返回值转换为字符串。
+而 String(a) 则是直接调用 ToString()。
+``` javascript
+var a = {
+    valueOf: function() { return 42; },
+    toString: function() { return 4; }
+};
+a + ""; // "42"
+String( a ); // "4"
+```
+
+- * / 这三个运算符都需要被转换为数字，它们首先被转换为字符串（通过强制类型转换toString()），
+然后再转换为数字。
+
+### 4.4.3　布尔值到数字的隐式强制类型转换
+onlyOne的唯一真值实现，可多个参数。
+``` javascript
+fucntion onlyOne () {
+    var sum = 0;
+    for (var i = 0; i < arguments.length; i++) {
+        // 跳过假值，和处理0一样，但是避免了NaN
+        if (arguments[i]) {
+            sum += arguments[i];
+        }
+    }
+    return sum == 1;
+}
+
+var a = true;
+var b = false;
+onlyOne( b, a ); // true
+onlyOne( b, a, b, b, b ); // true
+onlyOne( b, b ); // false
+onlyOne( b, a, b, b, b, a ); // false
+```
+
+### 4.4.4　隐式强制类型转换为布尔值
+(1) if (..) 语句中的条件判断表达式。
+(2) for ( .. ; .. ; .. ) 语句中的条件判断表达式（第二个）。
+(3) while (..) 和 do..while(..) 循环中的条件判断表达式。
+(4) ? : 中的条件判断表达式。
+(5) 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。
+
+### 4.4.5 || 和 && (选择器运算符)
+ES5 规范 11.11 节：&& 和 || 运算符的返回值并不一定是布尔类型，而是两个操作数其中一个的值。
+
+&&如果第一个操作数为真值，则 && 运算符“选择”第二个操作数作为返回值，这也叫作“守护运算符”。
+常见if (a) { foo(); }，JavaScript代码压缩工具用的是 a && foo()。
+
+### 4.4.6　符号的强制类型转换
+``` javascript
+    var s1 = Symbol( "cool" );
+    String( s1 ); // "Symbol(cool)"
+    var s2 = Symbol( "not cool" );
+    s2 + ""; // TypeError
+```
+符号不能够被强制类型转换为数字（显式和隐式都会产生错误），但可以被强制类型转换
+为布尔值（显式和隐式结果都是 true）。
+
+
+## 宽松相等和严格相等
+宽松相等（loose equals）== 和严格相等（strict equals）=== 都用来判断两个值是否“相等”,
+=== 检查值和类型是否相等, == 允许在相等比较中进行强制类型转换,而 === 不允许。
+
+### 4.5.2　抽象相等
+非常规情况：
+NaN 不等于 NaN
++0 等于 -0
+
+``` txt
+1. 字符串和数字之间的相等比较
+ES5 规范 11.9.3.4-5 这样定义：
+(1) 如果 Type(x) 是数字，Type(y) 是字符串，则返回 x == ToNumber(y) 的结果。
+(2) 如果 Type(x) 是字符串，Type(y) 是数字，则返回 ToNumber(x) == y 的结果。
+
+2. 其他类型和布尔类型之间的相等比较
+规范 11.9.3.6-7 是这样说的：
+(1) 如果 Type(x) 是布尔类型，则返回 ToNumber(x) == y 的结果；
+(2) 如果 Type(y) 是布尔类型，则返回 x == ToNumber(y) 的结果。
+
+3. null 和 undefined 之间的相等比较
+null 和 undefined 之间的 == 也涉及隐式强制类型转换。ES5 规范 11.9.3.2-3 规定：
+(1) 如果 x 为 null，y 为 undefined，则结果为 true。
+(2) 如果 x 为 undefined，y 为 null，则结果为 true。
+
+4. 对象和非对象之间的相等比较
+关于对象（对象 / 函数 / 数组）和标量基本类型（字符串 / 数字 / 布尔值）之间的相等比
+较，ES5 规范 11.9.3.8-9 做如下规定：
+(1) 如果 Type(x) 是字符串或数字，Type(y) 是对象，则返回 x == ToPrimitive(y) 的结果；
+(2) 如果 Type(x) 是对象，Type(y) 是字符串或数字，则返回 ToPromitive(x) == y 的结果。
+```
