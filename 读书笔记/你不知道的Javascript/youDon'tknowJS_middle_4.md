@@ -185,3 +185,39 @@ null 和 undefined 之间的 == 也涉及隐式强制类型转换。ES5 规范 1
 (1) 如果 Type(x) 是字符串或数字，Type(y) 是对象，则返回 x == ToPrimitive(y) 的结果；
 (2) 如果 Type(x) 是对象，Type(y) 是字符串或数字，则返回 ToPromitive(x) == y 的结果。
 ```
+
+### 4.5.3　比较少见的情况
+1.返回其他数字
+Number.prototype.valueOf = function() {
+ return 3;
+};
+
+2.假值的相等比较 (假阳)
+"0" == false; // true -- 晕！
+false == 0; // true -- 晕！
+false == ""; // true -- 晕！
+false == []; // true -- 晕！
+"" == 0; // true -- 晕！
+"" == []; // true -- 晕！
+0 == []; // true -- 晕！
+
+[] == ![] // true
+0 == "\n"; // true ToNumber("\n") => 0
+
+
+## 4.6　抽象关系比较
+* ES5 规范 11.8.5 节定义了“抽象关系比较”（abstract relational comparison），分为两个部
+分：比较双方都是字符串（后半部分）和其他情况（前半部分）。
+
+* 比较双方首先调用 ToPrimitive，如果结果出现非字符串，就根据 ToNumber 规则将双方强
+制类型转换为数字来进行比较。
+
+1.比较双方都是字符串，则按字母顺序来进行比较
+``` javascript
+var a = [ "42" ]; // [4, 2]
+var b = [ "043" ]; // [0, 4, 2]
+a < b; // 4 < 0 => false
+```
+2. 比较双方都是数组，则按数组顺序([0])来进行比较
+3. JavaScript 中 <= 是“不大于”的意思（即 !(a > b)，处理为 !(b < a)）。同理 a >= b 处理为 b <= a。
+如：a <= b 被处理为 b < a，然后将结果反转。因为 b < a 的结果是 false，所以 a <= b 的结果是 true。
