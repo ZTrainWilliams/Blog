@@ -1,0 +1,52 @@
+## 栅格-grid-css布局
+
+### 属性
+    grid-template-columns 属性和 grid-template-rows 属性
+    repeat() 函数：可以简化重复的值。该函数接受两个参数，第一个参数是重复的次数，第二个参数是所要重复的值
+    auto-fill ：表示自动填充，让一行（或者一列）中尽可能的容纳更多的单元格。
+    grid-template-columns: repeat(auto-fill, 200px)
+    auto ：由浏览器决定长度
+
+    fr 单位代表网格容器中可用空间的一等份。grid-template-columns: 200px 1fr 2fr 表示第一个列宽设置为 200px，后面剩余的宽度分为两部分，宽度分别为剩余宽度的 1/3 和 2/3
+    minmax() 函数产生一个长度范围，表示长度就在这个范围之中都可以应用到网格项目中。它接受两个参数，分别为最小值和最大值。grid-template-columns: 1fr 1fr minmax(300px, 2fr) 的意思是，第三个列宽最少也是要 300px，但是最大不能大于第一第二列宽的两倍。
+
+
+    grid-row-gap 属性、grid-column-gap 属性以及 grid-gap 属性
+    grid-row-gap: 10px 表示行间距是 10px，grid-column-gap: 20px 表示列间距是 20px。
+    简写：grid-gap: 10px 20px;
+
+
+    grid-template-areas属性指定网格布局中的区域。
+    您可以使用grid-area属性为网格项命名，然后引用属性中的名称grid-template-areas 。
+    每个区域由撇号定义。使用句点符号来引用没有名称的网格项。其中 . 符号代表空的单元格。
+    引用别名-例：.class {
+        grid-area: sidebar;
+    }
+
+    grid-auto-flow属性控制自动放置项目在网格中的插入方式。默认row（先行后列），column（先列后行），dense 填充网格中的任何孔,row dense（先行后列再填充）
+
+    justify-items 属性设置单元格内容的水平位置（tart | end | center | stretch 左|中|右|伸展），默认stretch
+    justify-self属性： 同上
+    align-items 属性设置单元格的垂直位置（start | end | center | stretch  上|中|下|伸展），默认stretch
+    align-self属性： 同上
+    place-self 是设置 align-self 和 justify-self 的简写形式
+
+    justify-content 属性是整个内容区域在容器里面的水平位置
+    （start | end | center | stretch | space-around | space-between | space-evenly 
+    左|中|右|伸展|围绕|间隔|均匀间隔 ）
+    align-content 属性是整个内容区域的垂直位置（上中下）
+
+    隐式和显示网格：
+    显式网格按照 grid-template-columns 和 grid-template-rows 属性中定义的行和列。
+    多出的内容数量（隐式网格）按照grid-auto-columns 属性和 grid-auto-rows 属性设置。
+
+    grid-column-start 属性：左边框所在的垂直网格线
+    grid-column-end 属性：右边框所在的垂直网格线
+    grid-row-start 属性：上边框所在的水平网格线
+    grid-row-end 属性：下边框所在的水平网格线
+
+### 响应式布局：
+    1. fr 实现等分响应式
+    2. repeat + auto-fit——固定列宽，改变列数量
+    3. repeat+auto-fit+minmax 去掉右侧空白
+    4. repeat+auto-fit+minmax-span-dense 解决空缺问题
