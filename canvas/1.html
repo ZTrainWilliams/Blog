@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Canvas tutorial</title>
+    <style type="text/css">
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+    <script type="text/javascript">
+      function draw() {
+        var canvas = document.getElementById("tutorial");
+        if (canvas.getContext) {
+          var ctx = canvas.getContext("2d");
+
+          ctx.fillStyle = "red";
+          ctx.fillRect(10, 10, 55, 50); // 矢量位置
+
+          ctx.fillStyle = "blue";
+          ctx.fillRect(30, 30, 55, 50);
+
+          ctx.fillRect(125, 125, 100, 100);
+          ctx.clearRect(145, 145, 60, 60);
+          ctx.strokeRect(150, 150, 50, 50);
+        }
+      }
+    </script>
+  </head>
+  <body onload="draw();">
+    <canvas id="tutorial" width="300" height="300"></canvas>
+  </body>
+</html>

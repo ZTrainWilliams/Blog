@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Canvas tutorial</title>
+    <style type="text/css">
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+    <script type="text/javascript">
+      function draw() {
+        var canvas = document.getElementById("tutorial");
+        if (canvas.getContext) {
+          var ctx = canvas.getContext("2d");
+
+          ctx.beginPath();
+          ctx.moveTo(75, 50);
+          ctx.lineTo(100, 75);
+          ctx.lineTo(100, 25);
+          ctx.fill();
+
+          // 描边三角形
+          ctx.beginPath();
+          ctx.moveTo(125, 125);
+          ctx.lineTo(125, 45);
+          ctx.lineTo(45, 135);
+          ctx.closePath();
+          ctx.stroke();
+        }
+      }
+    </script>
+  </head>
+  <body onload="draw();">
+    <canvas id="tutorial" width="300" height="300"></canvas>
+  </body>
+</html>
