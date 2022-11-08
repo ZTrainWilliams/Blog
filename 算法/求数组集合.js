@@ -43,3 +43,70 @@ function main() {
 }
 
 main();
+
+function getArrDifSameValue(arr1, arr2) {
+  var result = [];
+  for (var i = 0; i < arr2.length; i++) {
+    var obj = arr2[i];
+    let index = arr1.findIndex((v) => {
+      return v === obj.value;
+    });
+    if (index !== -1) {
+      result.push(obj);
+    }
+    // var isExist = false;
+    // for (var j = 0; j < arr1.length; j++) {
+    //   var aj = arr1[j];
+    //   if (aj == value) {
+    //     isExist = true;
+    //     break;
+    //   }
+    // }
+    // if (isExist) {
+    //   result.push(obj);
+    // }
+  }
+  return result;
+}
+
+function getArrDifSameValue2(arr1, arr2) {
+  let newArr = [].concat(arr1, arr2);
+  let res = [];
+  let map = new Map();
+  for (var i = 0; i < newArr.length; i++) {
+    if (map.has(newArr[i])) {
+      res.push(newArr[i]);
+    } else {
+      map.set(newArr[i], 1);
+    }
+  }
+  return res;
+}
+
+// function compare(arr1, arr2) {
+//   let result = new Map();
+//   arr1.forEach((item) => {
+//     let cur = arr2.find(v => {return v.id === item.id})
+//     if(cur){
+//       result.set(cur.id, cur)
+//     }
+//   })
+//   return result.values();
+// }
+
+// function compare(arr1, arr2) {
+//   let result = new Map();
+//   let map2 = new Map();
+//   arr2.forEach((item) => {
+//     map2.set(item.id, item)
+//   })
+//   arr1.forEach((item) => {
+//     let cur = arr2.has(item.id)
+//     if(cur){
+//       result.set(cur.id, cur)
+//     }
+//   })
+//   return result.values();
+// }
+
+console.log(getArrDifSameValue2([0, 1, 2, 3, 4, 5, 6], [1, 2, 5, 10, 12, 13]));
