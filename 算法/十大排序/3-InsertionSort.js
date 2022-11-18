@@ -1,3 +1,8 @@
+/*
+ * @Author: ZtrainWilliams ztrain1224@163.com
+ * @Date: 2022-11-11 10:03:18
+ * @Description: 
+ */
 // 插入排序（Insertion Sort）
 // 简单插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
 // 属于比较类排序-插入排序；时间复杂度O(n^2),空间复杂度O(1),稳定性-稳定。
@@ -26,4 +31,3 @@ function insertionSort(arr) {
 }
 
 console.log(insertionSort([2, 8, 6, 5, 4, 7, 9, 10, 1, 3]));
-
