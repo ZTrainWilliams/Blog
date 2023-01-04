@@ -1,0 +1,32 @@
+h1,
+p {
+  font-family: Lato;
+}
+
+.xcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.button {
+  padding: 10px;
+  margin: 10px;
+  background-color: rgba(50, 100, 200);
+  height: 20px;
+  line-height: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.button:click {
+  font-size: 20px;
+}
