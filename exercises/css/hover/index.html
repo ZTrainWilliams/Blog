@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hover</title>
+    <style>
+      .button {
+        width: 80px;
+        text-align: center;
+        position: relative;
+        background-color: blueviolet;
+        height: 32px;
+        line-height: 32px;
+        cursor: pointer;
+        transition: all 1s;
+        color: #fff;
+      }
+      .button p {
+        display: none;
+        width: 0;
+        opacity: 0;
+        overflow: hidden;
+        margin: 0;
+      }
+      .right,
+      .left {
+        background-image: url("./right.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+        width: 48px;
+        height: 32px;
+      }
+      .button .right {
+        display: none;
+        position: absolute;
+        transform: rotate(180deg);
+      }
+      .button:hover {
+        width: 180px;
+      }
+      .button:hover p {
+        display: inline-block;
+        width: 100px;
+        opacity: 1;
+      }
+      .button:hover .left {
+        display: none;
+      }
+      .button:hover .right {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="button">
+      <span class="left"></span>
+      <p>问题反馈</p>
+      <span class="right"></span>
+    </div>
+  </body>
+</html>
