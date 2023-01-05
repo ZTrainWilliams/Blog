@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #time {
+        margin-top: 100px;
+        font-size: 60px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="time"></div>
+
+    <script>
+      // 电子时钟：
+      // 页面上有一个电子时钟，显示当前的年月日，时分秒，要求自动变化，具体表现如下示例：
+      // 2022年12月8日星期四14:57:39
+      // 提示：
+      // 1．开启定时器，每隔1秒执行1次回调函数2．回调函数中，使用 Date 对象获取当前时分秒
+      // 3．判断时分秒是否大于10，个位补0
+      // 4．将时分秒内容拼接成字符串，并设置盒子的内容
+
+      //获取id是 time的元素
+      var time = document.getElementById("time");
+      //调用 获取日期时间
+      getDateTime();
+      //开启定时器
+      setInterval(getDateTime, 1000);
+
+      //定义定时器的回调函数，获取当前日期时间
+
+      function getDateTime() {
+        //创建时间，日期，对象
+        var date = new Date();
+
+        //获取年月日时分秒
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        var h = date.getHours();
+        var i = date.getMinutes();
+        var s = date.getSeconds();
+
+        //如果个位前面补充零
+        m = m < 10 ? "0" + m : m;
+        d = d < 10 ? "0" + d : d;
+        h = h < 10 ? "0" + h : h;
+        i = i < 10 ? "0" + i : i;
+        s = s < 10 ? "0" + s : s;
+        w = "星期" + "日一二三四五六".charAt(date.getDay());
+
+        var dateTimeStr = y + "-" + m + "-" + d + " " + w + " " + h + ":" + i + ":" + s;
+
+        //把字符串显示在元素中
+        time.innerHTML = dateTimeStr;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!--
+ * @Author: ZtrainWilliams ztrain1224@163.com
+ * @Date: 2023-01-04 16:38:38
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #countdown {
+        text-align: center;
+        width: 100%;
+        min-width: 780px;
+        font-size: 80px;
+        margin: 80px auto;
+        text-shadow: 16px 10px 5px rgba(187, 65, 187, 0.678),
+          5px 4px 6px rgba(215, 106, 82, 0.847), 2px 2px 2px rgb(118, 244, 9);
+        font-family: 楷体;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>距离中秋节还有：</h2>
+    <div id="countdown">XX天 XX时 XX分 XX秒 XXX</div>
+    <script>
+      //  倒计时：
+      // 页面上有一个倒计时时钟，显示距离圣诞节还有多长时间，要求自动变化，具体表现如下图：
+      // 距离圣诞季，还有
+      // 16天8时32分33秒
+      // 提示
+      // 1．获取要操作的元素（天时分秒盒子）2．获取结束日期的时间戳
+      // 3．开启定时器
+      // 4．获取当前日期的时间戳，并计算两个日期的差
+      // 5．将毫秒的时间差分别计算为天时分秒
+      // 6. 设置盒子的内容
+
+      // window.onload ：等待网页中所有标签加载完成后，再执行事件中的代码
+      // 网页加载事件：保障代码运行时，网页标签已经加载完成
+      window.onload = function () {
+        var _countdown = document.getElementById("countdown");
+        var _time;
+
+        // 倒计时函数
+        function countDownFn() {
+          // 获取当前时间
+          var date = new Date();
+          // 获取中秋时间
+          var targetTime = new Date("2032-09-10 00:00:00");
+          // 获取时间差
+          var distance = targetTime - date;
+          if (distance <= 0) {
+            alert("目标时间不能小于当前时间");
+            clearInterval(_time);
+            return;
+          }
+
+          // 计算剩余时间
+          var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var h = Math.floor((distance / (1000 * 60 * 60)) % 24);
+          var m = Math.floor((distance / (1000 * 60)) % 60);
+          // var ms = distance % 1000;
+          var ms = Math.floor((distance / 1000) % 60);
+
+          console.log(distance, ms, "时间差");
+
+          var time =
+            d.toString().padStart(2, "0") +
+            "天" +
+            h.toString().padStart(2, "0") +
+            "时" +
+            m.toString().padStart(2, "0") +
+            "分" +
+            ms.toString().padStart(2, "0") +
+            "秒";
+          // ms.toString().padStart(3, "0");
+
+          _countdown.innerText = time;
+        }
+
+        countDownFn();
+
+        _time = setInterval(function () {
+          countDownFn();
+        }, 1000);
+
+        // 毫秒闪烁方式
+        // _time = setInterval(function () {
+        //   countDownFn();
+        // }, 80);
+      };
+    </script>
+  </body>
+</html>
